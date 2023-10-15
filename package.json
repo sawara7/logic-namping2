@@ -1,0 +1,26 @@
+{
+  "name": "logic-namping2",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "scripts": {
+    "install-rimraf": "npm install --save-dev rimraf",
+    "cleanup": "rimraf package-lock.json && rimraf dist && rimraf node_modules",
+    "build": "npm run install-rimraf && npm run cleanup && npm install && tsc",
+    "tsc": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sawara7",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^28.1.6",
+    "@types/node": "^20.8.3",
+    "jest": "^28.1.3",
+    "rimraf": "^5.0.5",
+    "ts-jest": "^28.0.7",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "utils-general": "github:sawara7/utils-general",
+    "utils-trade": "github:sawara7/utils-trade"
+  }
+}
