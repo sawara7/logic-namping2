@@ -53,17 +53,29 @@ export class LogicNamping2Class {
         return (this.marketCap - this.realCap)/this.realCap
     }
 
+    get nampingPrice(): number {
+        return this.averagePrice * this._settings.nampingLowerRate
+    }
+
     get nampingSize(): number {
         let size = 0
-        size = (this.marketCap - this._settings.nampingRate * this.realCap)/((this._settings.nampingRate - 1)*this._marketPrice)
+        size = (this.nampingCap - this._settings.nampingUpperRate * this.realCap)/((this._settings.nampingUpperRate - 1)*this.nampingPrice)
         if (this.realCap === 0) return floor(this._settings.minSize, this._settings.sizePrecision)
         return floor(size, this._settings.sizePrecision)
+    }
+
+    get nampingCap(): number {
+        return this.totalSize * this.nampingPrice
     }
 
     get totalSize(): number {
         let size = 0
         for (const id of Object.keys(this.positions)) size += this.positions[id].size 
         return size
+    }
+
+    get lossRate(): number {
+        return (this.marketCap - this.realCap)/this.realCap
     }
 
     get marketCap(): number {

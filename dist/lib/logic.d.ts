@@ -11,8 +11,11 @@ export declare class LogicNamping2Class {
     clearPosition(clearPrice: number): void;
     get totalProfit(): number;
     get profitRate(): number;
+    get nampingPrice(): number;
     get nampingSize(): number;
+    get nampingCap(): number;
     get totalSize(): number;
+    get lossRate(): number;
     get marketCap(): number;
     get realCapIncludeNextNampingSize(): number;
     get realCap(): number;

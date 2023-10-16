@@ -3,7 +3,8 @@ export interface LogicNamping2Settings {
     pricePrecision: number
     sizePrecision: number
     minSize: number
-    nampingRate: number
+    nampingUpperRate: number
+    nampingLowerRate: number
 }
 
 export interface NampingPosition {

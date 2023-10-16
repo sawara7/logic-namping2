@@ -6,7 +6,8 @@ const setting: LogicNamping2Settings = {
     pricePrecision: 1,
     sizePrecision: 4,
     minSize: 0.0001,
-    nampingRate: 0.995
+    nampingUpperRate: 0.995,
+    nampingLowerRate: 0.99
 }
 const logic = new LogicNamping2Class(setting)
 logic.marketPrice = 70

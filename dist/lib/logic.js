@@ -40,18 +40,27 @@ class LogicNamping2Class {
     get profitRate() {
         return (this.marketCap - this.realCap) / this.realCap;
     }
+    get nampingPrice() {
+        return this.averagePrice * this._settings.nampingLowerRate;
+    }
     get nampingSize() {
         let size = 0;
-        size = (this.marketCap - this._settings.nampingRate * this.realCap) / ((this._settings.nampingRate - 1) * this._marketPrice);
+        size = (this.nampingCap - this._settings.nampingUpperRate * this.realCap) / ((this._settings.nampingUpperRate - 1) * this.nampingPrice);
         if (this.realCap === 0)
             return (0, utils_general_1.floor)(this._settings.minSize, this._settings.sizePrecision);
         return (0, utils_general_1.floor)(size, this._settings.sizePrecision);
+    }
+    get nampingCap() {
+        return this.totalSize * this.nampingPrice;
     }
     get totalSize() {
         let size = 0;
         for (const id of Object.keys(this.positions))
             size += this.positions[id].size;
         return size;
+    }
+    get lossRate() {
+        return (this.marketCap - this.realCap) / this.realCap;
     }
     get marketCap() {
         return this.totalSize * this._marketPrice;
