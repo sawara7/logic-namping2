@@ -41,7 +41,7 @@ class LogicNamping2Class {
         return (this.marketCap - this.realCap) / this.realCap;
     }
     get nampingPrice() {
-        return this.averagePrice * this._settings.nampingLowerRate;
+        return this.totalSize > 0 ? this.averagePrice * this._settings.nampingLowerRate : this.marketPrice;
     }
     get nampingSize() {
         let size = 0;

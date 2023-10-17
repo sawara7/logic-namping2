@@ -54,7 +54,7 @@ export class LogicNamping2Class {
     }
 
     get nampingPrice(): number {
-        return this.averagePrice * this._settings.nampingLowerRate
+        return this.totalSize > 0 ? this.averagePrice * this._settings.nampingLowerRate: this.marketPrice
     }
 
     get nampingSize(): number {
