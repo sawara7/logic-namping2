@@ -11,10 +11,12 @@ export class LogicNamping2Class {
     private positions: {[id: string]: NampingPosition}
     private _marketPrice: number
     private _totalProfit: number
+    private _badget: number
 
     constructor(private _settings: LogicNamping2Settings) {
         this._marketPrice = 0
         this._totalProfit = 0
+        this._badget = 0
         this.positions = {}
     }
 
@@ -41,8 +43,15 @@ export class LogicNamping2Class {
     }
 
     clearPosition(clearPrice: number) {
-        for (const id of Object.keys(this.positions)) this._totalProfit += (clearPrice - this.positions[id].price) * this.positions[id].size 
+        for (const id of Object.keys(this.positions)) {
+            const profit = (clearPrice - this.positions[id].price) * this.positions[id].size
+            this._totalProfit += profit
+        } 
         this.positions = {}
+    }
+
+    updateBadget(badget: number) {
+        this._badget = badget
     }
 
     get totalProfit(): number {
@@ -60,7 +69,7 @@ export class LogicNamping2Class {
     get nampingSize(): number {
         let size = 0
         size = (this.nampingCap - this._settings.nampingUpperRate * this.realCap)/((this._settings.nampingUpperRate - 1)*this.nampingPrice)
-        if (this.realCap === 0) return floor(this._settings.minSize, this._settings.sizePrecision)
+        if (this.realCap === 0) return floor((this._badget/this._settings.initialSizeRate)/this.marketPrice, this._settings.sizePrecision)
         return floor(size, this._settings.sizePrecision)
     }
 

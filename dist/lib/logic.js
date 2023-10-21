@@ -7,6 +7,7 @@ class LogicNamping2Class {
         this._settings = _settings;
         this._marketPrice = 0;
         this._totalProfit = 0;
+        this._badget = 0;
         this.positions = {};
     }
     set marketPrice(price) {
@@ -30,9 +31,14 @@ class LogicNamping2Class {
         }
     }
     clearPosition(clearPrice) {
-        for (const id of Object.keys(this.positions))
-            this._totalProfit += (clearPrice - this.positions[id].price) * this.positions[id].size;
+        for (const id of Object.keys(this.positions)) {
+            const profit = (clearPrice - this.positions[id].price) * this.positions[id].size;
+            this._totalProfit += profit;
+        }
         this.positions = {};
+    }
+    updateBadget(badget) {
+        this._badget = badget;
     }
     get totalProfit() {
         return this._totalProfit;
@@ -47,7 +53,7 @@ class LogicNamping2Class {
         let size = 0;
         size = (this.nampingCap - this._settings.nampingUpperRate * this.realCap) / ((this._settings.nampingUpperRate - 1) * this.nampingPrice);
         if (this.realCap === 0)
-            return (0, utils_general_1.floor)(this._settings.minSize, this._settings.sizePrecision);
+            return (0, utils_general_1.floor)((this._badget / this._settings.initialSizeRate) / this.marketPrice, this._settings.sizePrecision);
         return (0, utils_general_1.floor)(size, this._settings.sizePrecision);
     }
     get nampingCap() {

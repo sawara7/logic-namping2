@@ -2,6 +2,7 @@ import { LogicNamping2Class } from "./logic"
 import { LogicNamping2Settings } from "./params"
 
 const setting: LogicNamping2Settings = {
+    initialSizeRate: 300,
     profitRate: 1.01,
     pricePrecision: 1,
     sizePrecision: 4,
@@ -10,6 +11,7 @@ const setting: LogicNamping2Settings = {
     nampingLowerRate: 0.99
 }
 const logic = new LogicNamping2Class(setting)
+logic.updateBadget(100000)
 logic.marketPrice = 70
 for (let i = 0; i < 100; i++) {
     logic.marketPrice = logic.marketPrice - 0.1 * i
