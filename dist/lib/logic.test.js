@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const logic_1 = require("./logic");
 const setting = {
-    pair: "mona_jpy",
-    asset: "mona",
     initialSizeRate: 300,
     profitRate: 1.01,
     pricePrecision: 1,

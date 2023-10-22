@@ -1,6 +1,4 @@
 export interface LogicNamping2Settings {
-    pair: string;
-    asset: string;
     initialSizeRate: number;
     profitRate: number;
     pricePrecision: number;

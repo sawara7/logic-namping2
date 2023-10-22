@@ -51,9 +51,10 @@ class LogicNamping2Class {
     }
     get nampingSize() {
         let size = 0;
-        size = (this.nampingCap - this._settings.nampingUpperRate * this.realCap) / ((this._settings.nampingUpperRate - 1) * this.nampingPrice);
         if (this.realCap === 0)
-            return (0, utils_general_1.floor)((this._badget / this._settings.initialSizeRate) / this.marketPrice, this._settings.sizePrecision);
+            size = (this._badget / this._settings.initialSizeRate) / this.marketPrice;
+        else
+            size = (this.nampingCap - this._settings.nampingUpperRate * this.realCap) / ((this._settings.nampingUpperRate - 1) * this.nampingPrice);
         return (0, utils_general_1.floor)(size, this._settings.sizePrecision);
     }
     get nampingCap() {
