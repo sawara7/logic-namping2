@@ -131,4 +131,8 @@ export class LogicNamping2Class {
     get nampingCounts(): {[nampingCount: number]: NampingCount} {
         return this._nampingCountStatic 
     }
+
+    get nampingCount(): number {
+        return this._nampingCount
+    }
 }

@@ -103,5 +103,8 @@ class LogicNamping2Class {
     get nampingCounts() {
         return this._nampingCountStatic;
     }
+    get nampingCount() {
+        return this._nampingCount;
+    }
 }
 exports.LogicNamping2Class = LogicNamping2Class;

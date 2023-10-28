@@ -32,4 +32,5 @@ export declare class LogicNamping2Class {
     get nampingCounts(): {
         [nampingCount: number]: NampingCount;
     };
+    get nampingCount(): number;
 }
