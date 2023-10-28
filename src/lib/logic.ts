@@ -7,17 +7,26 @@ import {
     LogicNamping2Settings
 } from "./params"
 
+export interface NampingCount {
+    count: number,
+    volume: number
+}
+
 export class LogicNamping2Class {
     private positions: {[id: string]: NampingPosition}
     private _marketPrice: number
     private _totalProfit: number
     private _badget: number
+    private _nampingCount: number
+    private _nampingCountStatic: {[nampingCount: number]: NampingCount}
 
     constructor(private _settings: LogicNamping2Settings) {
         this._marketPrice = 0
         this._totalProfit = 0
         this._badget = 0
         this.positions = {}
+        this._nampingCount = 0
+        this._nampingCountStatic = {}
     }
 
     set marketPrice(price: number) {
@@ -40,13 +49,23 @@ export class LogicNamping2Class {
                 size: size
             }
         }
+        this._nampingCount++
     }
 
     clearPosition(clearPrice: number) {
         for (const id of Object.keys(this.positions)) {
             const profit = (clearPrice - this.positions[id].price) * this.positions[id].size
             this._totalProfit += profit
-        } 
+        }
+        if (!this._nampingCountStatic[this._nampingCount]) {
+            this._nampingCountStatic[this._nampingCount] = {
+                count: 1,
+                volume: this.averagePrice * this.totalSize
+            }
+        } else {
+            this._nampingCountStatic[this._nampingCount].count++
+        }
+        this._nampingCount = 0
         this.positions = {}
     }
 
@@ -107,5 +126,9 @@ export class LogicNamping2Class {
 
     get limitPrice(): number {
         return floor(this.averagePrice * this._settings.profitRate, this._settings.pricePrecision)
+    }
+
+    get nampingCounts(): {[nampingCount: number]: NampingCount} {
+        return this._nampingCountStatic 
     }
 }

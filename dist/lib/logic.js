@@ -9,6 +9,8 @@ class LogicNamping2Class {
         this._totalProfit = 0;
         this._badget = 0;
         this.positions = {};
+        this._nampingCount = 0;
+        this._nampingCountStatic = {};
     }
     set marketPrice(price) {
         this._marketPrice = price;
@@ -29,12 +31,23 @@ class LogicNamping2Class {
                 size: size
             };
         }
+        this._nampingCount++;
     }
     clearPosition(clearPrice) {
         for (const id of Object.keys(this.positions)) {
             const profit = (clearPrice - this.positions[id].price) * this.positions[id].size;
             this._totalProfit += profit;
         }
+        if (!this._nampingCountStatic[this._nampingCount]) {
+            this._nampingCountStatic[this._nampingCount] = {
+                count: 1,
+                volume: this.averagePrice * this.totalSize
+            };
+        }
+        else {
+            this._nampingCountStatic[this._nampingCount].count++;
+        }
+        this._nampingCount = 0;
         this.positions = {};
     }
     updateBadget(badget) {
@@ -86,6 +99,9 @@ class LogicNamping2Class {
     }
     get limitPrice() {
         return (0, utils_general_1.floor)(this.averagePrice * this._settings.profitRate, this._settings.pricePrecision);
+    }
+    get nampingCounts() {
+        return this._nampingCountStatic;
     }
 }
 exports.LogicNamping2Class = LogicNamping2Class;
