@@ -11,11 +11,12 @@ export declare class LogicNamping2Class {
     private _badget;
     private _nampingCount;
     private _nampingCountStatic;
+    private _losscutCount;
     constructor(_settings: LogicNamping2Settings);
     set marketPrice(price: number);
     get marketPrice(): number;
     setPosition(price: number, size: number, id: string): void;
-    clearPosition(clearPrice: number): void;
+    clearPosition(clearPrice: number, losscut?: boolean): void;
     updateBadget(badget: number): void;
     get totalProfit(): number;
     get profitRate(): number;
@@ -33,4 +34,5 @@ export declare class LogicNamping2Class {
         [nampingCount: number]: NampingCount;
     };
     get nampingCount(): number;
+    get losscutCount(): number;
 }

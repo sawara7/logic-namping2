@@ -11,6 +11,7 @@ class LogicNamping2Class {
         this.positions = {};
         this._nampingCount = 0;
         this._nampingCountStatic = {};
+        this._losscutCount = 0;
     }
     set marketPrice(price) {
         this._marketPrice = price;
@@ -33,7 +34,7 @@ class LogicNamping2Class {
         }
         this._nampingCount++;
     }
-    clearPosition(clearPrice) {
+    clearPosition(clearPrice, losscut) {
         for (const id of Object.keys(this.positions)) {
             const profit = (clearPrice - this.positions[id].price) * this.positions[id].size;
             this._totalProfit += profit;
@@ -49,6 +50,7 @@ class LogicNamping2Class {
         }
         this._nampingCount = 0;
         this.positions = {};
+        this._losscutCount++;
     }
     updateBadget(badget) {
         this._badget = badget;
@@ -105,6 +107,9 @@ class LogicNamping2Class {
     }
     get nampingCount() {
         return this._nampingCount;
+    }
+    get losscutCount() {
+        return this._losscutCount;
     }
 }
 exports.LogicNamping2Class = LogicNamping2Class;

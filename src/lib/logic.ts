@@ -19,6 +19,7 @@ export class LogicNamping2Class {
     private _badget: number
     private _nampingCount: number
     private _nampingCountStatic: {[nampingCount: number]: NampingCount}
+    private _losscutCount: number
 
     constructor(private _settings: LogicNamping2Settings) {
         this._marketPrice = 0
@@ -27,6 +28,7 @@ export class LogicNamping2Class {
         this.positions = {}
         this._nampingCount = 0
         this._nampingCountStatic = {}
+        this._losscutCount = 0
     }
 
     set marketPrice(price: number) {
@@ -52,7 +54,7 @@ export class LogicNamping2Class {
         this._nampingCount++
     }
 
-    clearPosition(clearPrice: number) {
+    clearPosition(clearPrice: number, losscut?: boolean) {
         for (const id of Object.keys(this.positions)) {
             const profit = (clearPrice - this.positions[id].price) * this.positions[id].size
             this._totalProfit += profit
@@ -67,6 +69,7 @@ export class LogicNamping2Class {
         }
         this._nampingCount = 0
         this.positions = {}
+        this._losscutCount++
     }
 
     updateBadget(badget: number) {
@@ -134,5 +137,9 @@ export class LogicNamping2Class {
 
     get nampingCount(): number {
         return this._nampingCount
+    }
+
+    get losscutCount(): number {
+        return this._losscutCount
     }
 }
