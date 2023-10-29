@@ -50,7 +50,8 @@ class LogicNamping2Class {
         }
         this._nampingCount = 0;
         this.positions = {};
-        this._losscutCount++;
+        if (losscut)
+            this._losscutCount++;
     }
     updateBadget(badget) {
         this._badget = badget;
